@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 		features = "src/test/java/features", 
 		glue = { "stepDefinitions"},
 		plugin = {"json:target/jsonReports/cucumber-report.json"}
-		,tags = "@Regression"
+		,tags = "@readAllAirlines"
 		//,dryRun = true
 		)
 public class TestRunner {

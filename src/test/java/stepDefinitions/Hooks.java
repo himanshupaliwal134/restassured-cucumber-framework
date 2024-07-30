@@ -10,7 +10,7 @@ public class Hooks {
 	@Before("@deletePlace")
 	public void beforeScenario() throws IOException {
 		/* Get value of place_id only if it is null */
-		StepDef stepDef = new StepDef();
+		GoogleAPI_StepDef stepDef = new GoogleAPI_StepDef();
 		if (stepDef.placeID == null) {
 			stepDef.add_place_payload_with_arguments("Ram", "Tamil", "Annasalai");
 			stepDef.user_calls_with_http_request("ADD_PLACE_API", "POST");

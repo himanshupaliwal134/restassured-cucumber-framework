@@ -19,7 +19,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
-public class StepDef extends Utils{
+public class GoogleAPI_StepDef extends Utils{
 	
 	ResponseSpecification resSpec  = new ResponseSpecBuilder()
 			.expectStatusCode(200)
