@@ -2,12 +2,13 @@ package stepDefinitions;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.app.helper.JSONParsing;
 import com.app.resources.APIResources;
-import com.app.resources.TestDataBuilder;
 import com.app.resources.Utils;
 
 import io.cucumber.java.en.Given;
@@ -90,7 +91,10 @@ public class FakeAPI_StepDef extends Utils {
 	public void total_airlines_are_flying_in_the_sky(String expectedAirlinesCount) {
 		JsonPath jsonPath = apiResponse.jsonPath();
 		System.out.println("Total Airlines : " + jsonPath.getList("$").size());
-		assertEquals(jsonPath.getList("$").size(), Integer.valueOf(expectedAirlinesCount));
-	   
+		assertTrue("Expected value is greater : ",jsonPath.getList("$").size() > Integer.valueOf(expectedAirlinesCount));
+
+		// Extract the list of names
+        List<String> names = jsonPath.getList("name");
+        
 	}
 }

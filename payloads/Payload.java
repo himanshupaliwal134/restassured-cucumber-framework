@@ -1,4 +1,3 @@
-package com.app.payloads;
 
 public class Payload {
 	public static String addPlace() {

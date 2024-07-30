@@ -3,6 +3,7 @@ package com.app.resources;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Properties;
 
@@ -48,7 +49,7 @@ public RequestSpecification fakeAPIrequestSpecification() throws IOException {
 		if(fakeAPIreqSpec == null) { 
 		PrintStream log = new PrintStream(new FileOutputStream("FakeAPI_logging.txt"));
 		fakeAPIreqSpec =  new RequestSpecBuilder()
-				.setBaseUri("https://api.instantwebtools.net/v1")
+				.setBaseUri(getGlobalValue("fakeAPI"))
 				//.addQueryParam("key", "qaclick123") Not needed
 				.addFilter(RequestLoggingFilter.logRequestTo(log))
 				.addFilter(ResponseLoggingFilter.logResponseTo(log))
@@ -61,8 +62,16 @@ public RequestSpecification fakeAPIrequestSpecification() throws IOException {
 	}
 	public static String getGlobalValue(String key) throws IOException {
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream("C:\\Users\\adity\\Eclipse_Workspace_June_2024\\RestAssuredFramework\\src\\test\\java\\com\\app\\resources\\global.properties");
-		prop.load(fis);
+		try (InputStream inputStream = Utils.class.getClassLoader().getResourceAsStream("global.properties")) {
+            if (inputStream == null) {
+                throw new IOException("Unable to find global.properties");
+            }
+            prop.load(inputStream);
+        }
+		
+		
+		//FileInputStream fis = new FileInputStream("/restassured-cucumber-framework/src/test/java/com/app/resources/global.properties");
+		//prop.load(fis);
 		return prop.getProperty(key);
 	}
 	
